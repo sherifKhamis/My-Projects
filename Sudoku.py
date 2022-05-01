@@ -1,13 +1,17 @@
 #This is a Sudoku Game in Python with 3 difficulties, 
-#and its own Sudoku Solver 
+#its own Sudoku Solver, a randomized Sudoku Game 
+#generator and limited number and letter input
 
-import random
-from tkinter import Grid
 
+import random 
+
+#Sudoku Header and difficulty game menu 
 print ("SUDOKU IN PYTHON\n\nWhich difficulty do you want to play ?\nEASY (a)\tMEDIUM (b)\tHARD (c)")
 difficultyMessage = "EASY (a)\tMEDIUM (b)\tHARD (c)"
 difficultyWanted = "abc"
 def limitLetter (wanted, errormessage):
+    #function to limit letter user input
+
     userInput = input()
     for x in wanted:
         if x == userInput:
@@ -16,7 +20,11 @@ def limitLetter (wanted, errormessage):
     print(errormessage)
     return limitLetter(wanted,errormessage)
 difficultyKey = limitLetter (difficultyWanted, difficultyMessage)
+
+
 def createGame (difficulty):
+    #function that creates a randomized game
+
     array = [[1,2,9,5,4,3,7,8,6],
              [7,3,5,8,6,9,4,2,1],
              [4,8,6,1,2,7,3,5,9],
@@ -31,7 +39,10 @@ def createGame (difficulty):
             if random.random () < difficulty:
                 array[i][j] = 0
     return array
+
 def printGame (array):
+    #function that prints the sudoku board
+
     print()
     for i in range(9):
         for j in range(9):
@@ -44,17 +55,27 @@ def printGame (array):
 difficulties = {"a" : 0.3, "b" : 0.4, "c" : 0.6}
 array = createGame (difficulties[difficultyKey])
 printGame (array)
+
+#gamemode menu
 solveMessage = "\nSolve it yourself (a) OR let the AI solve it for you (b)"
 print (solveMessage)
 solveWanted = "ab"
 solveKey = limitLetter (solveWanted, solveMessage)
+
+
 def noRep (value, x, y, game):
+    #function that ensures theres no repetition 
+
     for i in range (9):
         for j in range (9):
             if value != 0 and (value == game[x][j] or value == game[i][y] or x/3 == i/3 and y/3 == j/3 and value == game [i][j]):
                 return False
     return True
+
+
 def solve (array):
+    #function that solves the sudoku game and prints it afterwards
+
     for i in range (9):
         for j in range (9):
             if array[i][j] == 0:
@@ -65,7 +86,11 @@ def solve (array):
                         array [i][j] = 0
                 return 
     printGame (array)
+
+
 def limitNumber (errormssg):
+    #function that limits input to valid numbers only (1-9)
+
     numberInput = input()
     length = len (numberInput)
     counter = 0
@@ -81,20 +106,32 @@ def limitNumber (errormssg):
         print(errormssg, end = "")
         numberInput = limitNumber(errormssg)
     return numberInput
+
+
 def playGame (game):
+    #gameplay menu 
+
+    #row
     printGame (game)
     rowMessage = "ROW: "
     print(rowMessage, end = "")
     row = int (limitNumber (rowMessage))
+
+    #column 
     columnMessage = "COLUMN: "
     print(columnMessage, end = "")
     column = int (limitNumber (columnMessage))
+
+    #value
     valueMessage = "VALUE: "
     print(valueMessage, end = "")
     value = int (limitNumber (valueMessage))
+
+    #checking if value is valid 
     while noRep(value, row-1, column-1, array) == False:
         print ("\nWrong input try again\n")
         playGame (game)
+    
     game[row-1][column-1] = value
     playGame (game)
 
