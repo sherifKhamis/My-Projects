@@ -1,6 +1,9 @@
+/*Simple Sudoku Game in C with its own Sudoku Solver*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <unistd.h> //sleep ()
 
 
 void printGame (int game[9][9]);
@@ -9,8 +12,11 @@ void solveGame (int game [9][9]);
 bool endGame (int game [9][9]);
 void gameMenu (int game [9][9]);
 void playGame (int game [9][9]);
+
+
 int main ()
 {
+    //Already generated Sudoku field
     int spielFeld [9][9] = 
     {
         {1,0,4,0,9,0,3,0,6},
@@ -28,6 +34,7 @@ int main ()
     return 0;
 }
 
+//Function to print the Sudoku Game
 void printGame (int game[9][9])
 {
     printf("  *****Sudoku GAME*****\n\n");
@@ -44,6 +51,8 @@ void printGame (int game[9][9])
         i == 2 || i == 5 || i == 8 ? printf("-------------------------\n"):0;
     }
 }
+
+//Function to make sure there's no repetitions 
 bool noRep (int value, int x, int y, int game[9][9])
 {
     for (int i = 0; i < 9; i++)
@@ -58,6 +67,8 @@ bool noRep (int value, int x, int y, int game[9][9])
     }
     return true;
 }
+
+//Function to solve the Sudoku Game
 void solveGame (int game[9][9])
 {
     for (int i = 0; i < 9; i++)
@@ -79,8 +90,11 @@ void solveGame (int game[9][9])
             }
         }
     }
-    printGame (game);
+    printGame (game); //print the result
 }
+
+//Function to choose which game mode to run
+//either solving it yourself or letting the sudoku solver solve it
 void gameMenu (int game [9][9])
 {
     printf("\t\t******Welcome to SUDOKU IN C******\n\n");
@@ -94,11 +108,15 @@ void gameMenu (int game [9][9])
         break;
 
         case 'b':
+        printGame (game);
+        sleep (5);
         solveGame (game);
         break;
     }
     return;
 }
+
+//Function to check if the game is already over
 bool endGame (int game [9][9])
 {
     for (int i = 0; i < 9; i++)
@@ -114,11 +132,12 @@ bool endGame (int game [9][9])
     }
     return true;
 }
+
+//function that runs the actual game
 void playGame (int game [9][9])
 {
     printGame (game); 
     int x, y, value;
-    int key;
     printf("\nROW: ");
     scanf("%d", &x);
     printf("\nCOL: ");
@@ -134,9 +153,8 @@ void playGame (int game [9][9])
         printf("\nDuplicate number, try again!\n");
         playGame (game);
     }
-    printf("\nPress Q to quit else press anything else");
-    scanf("%c", &key);
-    if (key == 'q' || endGame(game))
+    
+    if (endGame(game))
     {
         return;
     }
