@@ -1,9 +1,13 @@
+/*Sudoku Game in C++ with its own Sudoku Solver, 
+ limited user input for letters and numbers and a 
+ randomized Sudoku game generator*/
+
 #include <iostream>
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <string.h>
-#include <cctype>
+#include <stdlib.h> //srand()
+#include <time.h> //time()
+#include <string.h> //strlen()
+#include <cctype> //isdigit()
 using namespace std;
 
 #define N 9
@@ -19,7 +23,8 @@ void solveGame (int game[N][N]);
 
 int main ()
 {
-    int spielFeld [9][9] = 
+    //Finished Sudoku Game 
+    int spielFeld [N][N] = 
     {
         {1,2,9,5,4,3,7,8,6},
         {7,3,5,8,6,9,4,2,1},
@@ -36,6 +41,7 @@ int main ()
     return 0;
 }
 
+//Function to print the Sudoku Game
 void printGame (int game[N][N])
 {
     printf("  *****Sudoku GAME*****\n\n");
@@ -52,6 +58,8 @@ void printGame (int game[N][N])
         i == 2 || i == 5 || i == 8 ? printf("-------------------------\n"):0;
     }
 }
+
+//Function to create a randomized Sudoku Game
 void createGame (int game [N][N], int difficulty)
 {
     srand(time(0));
@@ -67,6 +75,7 @@ void createGame (int game [N][N], int difficulty)
         }
     }
 }
+//Function to limit letter user Input to a certain range of letters
 void letterInput (char *wanted, char *input, string errormessage, int wantedLength)
 {   
     int len = strlen (wanted);
@@ -102,8 +111,12 @@ void letterInput (char *wanted, char *input, string errormessage, int wantedLeng
         letterInput (wanted, input, errormessage, wantedLength);
     }
 }
+
+//Function for the game menu where difficulty and gamemode are chosen
 void gameMenu (int game [N][N])
 {
+    
+    //Header and difficutly menu 
     printf("*****WELCOME TO SUDOKU IN C++*****\n\n");
     printf("Which difficulty do you want to play ?\n");
     string difficultyMessage = "EASY (a)\tMEDIUM (b)\tHARD (c)\n";
@@ -112,12 +125,15 @@ void gameMenu (int game [N][N])
     char wanted [] = "abc";
     cin >> difficulty;
     letterInput (wanted, difficulty, difficultyMessage, 1);
+
+    //Gamemode menu
     string choiceMessage = "\nSolve the Sudoku yourself (a) or let the AI solve it for you (b) ?\n";
     cout << choiceMessage;
     char solveChoice[100];
     char wantedChoice [] = "ab";
     cin >> solveChoice;
     letterInput (wantedChoice, solveChoice, choiceMessage, 1);
+    
     switch (solveChoice[0])
     {
         case 'a':
@@ -167,6 +183,8 @@ void gameMenu (int game [N][N])
     }
 
 }
+
+//Function for the actual game
 void playGame (int game [N][N])
 {
     printGame(game);
@@ -228,6 +246,8 @@ void playGame (int game [N][N])
 
 
 }
+
+//function that ensures that theres no repetition
 bool noRep (int value, int x, int y, int game[N][N])
 {
     for (int i = 0; i < 9; i++)
@@ -243,6 +263,7 @@ bool noRep (int value, int x, int y, int game[N][N])
     return true;
 }
 
+//function that solves the sudoku game via backtracking
 void solveGame (int game[N][N])
 {
     for (int i = 0; i < 9; i++)
