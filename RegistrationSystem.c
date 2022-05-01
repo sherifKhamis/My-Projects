@@ -1,23 +1,22 @@
 #include <stdio.h>
 
-void newUser ();
-
+void newUser (char (*name)[100], char (*password)[100]);
 
 int main ()
 {
-    char *name, *password;
-    newUser (name, password);
+    char name[100], password[100];
+    newUser (&name, &password);
     printf("\nUsername = %s\nPassword = %s", name, password);
 
     return 0;
 }
 
 //function to register a new user 
-void newUser (char name[100], char password[100])
+void newUser (char (*name)[100], char (*password)[100])
 {
     //name input
     printf("\nWhats your username ?: ");
-    scanf("%s", &name);
+    scanf("%s", name);
 
     //For the second scanf() to work this code 
     //needs to remove any newlines in the buffer
@@ -26,7 +25,6 @@ void newUser (char name[100], char password[100])
 
     //password input
     printf("\nWhats your Password ?: ");
-    scanf("%s", &password);
+    scanf("%s", password);
 
-    return;
 }
