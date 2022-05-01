@@ -1,16 +1,25 @@
+/*Simple Currency Converter in C++, with 4 
+ currencies: EURO, US Dollar, British Pound and Chinese Yen. 
+ And a function to limit user input*/
+
+
 #include <iostream>
-#include <string.h>
 using namespace std;
 
-void letterInput(char want1, char want2, char want3, char want4, char &input);         
+void letterInput(char want1, char want2, char want3, char want4, char &input);
+
 int main ()
 {
+    
+    //Header and menu asking for starting currency
     cout << "\t\tCurrency Converter \n\nWhich currency do you want to exchange ?";
     cout << "\nEUR (a)\t\tUSD (b)\t\tGBP (c)\t\tCNY (d)\n";                                             
     char input, output;
     string icurrency, ocurrency;
     cin >> input;                                                                               
-    letterInput ('a','b','c','d', input);
+    letterInput ('a','b','c','d', input); //Function to limt userinput to "abcd" ONLY
+    
+    //Switch statement to turn single letter user input into actual currency names
     switch (input)
     {
         case 'a':
@@ -29,13 +38,18 @@ int main ()
         icurrency = "CNY";
         break;
     }
+
+    //Menu for taking the currency amount and the target currency
     cout << "\nHow much " << icurrency << " do you have ?\n";                                  
     float multiplyer, result, amount;
     cin >> amount;
     cout << "\nWhich currency do you want instead ?\n";
     cout << "EUR (a)\t\tUSD (b)\t\tGBP (c)\t\tCNY (d)\n";
     cin >> output;
-    letterInput ('a','b','c','d', output);
+    letterInput ('a','b','c','d', output); //Function for limiting user input to "abcd" only
+
+    //Switch statement for turning single letter input into actual currency names and setting 
+    //the multiplyer to the needed exchange rate 
     switch (output)
     {
         case 'a':
@@ -129,12 +143,14 @@ int main ()
         break;
 
     }
-    result = amount * multiplyer;
+    result = amount * multiplyer; //Result = amount * exchange rate
     cout << "\nYour " << amount << " " << icurrency << " are " << result << " " << ocurrency; 
 
     return 0;
 }
-void letterInput(char want1, char want2, char want3, char want4, char &input)
+
+//Function that limits user input to 4 single letters 
+void letterInput(char want1, char want2, char want3, char want4, char &input) 
 {
     if (input == want1 || input == want2 || input == want3 || input == want4)
     {
