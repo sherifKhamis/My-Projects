@@ -1,6 +1,14 @@
+#Currency Converter in Python, with 
+#live api exchange rates and functions
+#to limit letter and number user input
+
+
 import requests
-print("\t\t\tCurrency Converter")
+print("\t\t\tCurrency Converter") #header
+
 def limitLetter (wanted, errormessage):
+    #function to limit letter user input
+
     userInput = input()
     for x in wanted:
         if x == userInput:
@@ -8,13 +16,20 @@ def limitLetter (wanted, errormessage):
     print("\n## Wrong input, try again! ##")
     print(errormessage)
     return limitLetter(wanted,errormessage)
+
+#Starting currency menu and user input window
 iCurrencyMessage = "\nWhich currency do you want to exchange ?\n   EUR(a)   USD(b)   GBP(c)   CNY(d)"
 print(iCurrencyMessage)
 iCurrencyKey = limitLetter ("abcd", iCurrencyMessage)
 currencies = {"a" : "EUR", "b" : "USD", "c" : "GBP", "d" : "CNY"}
+
+#Starting currency amount menu and user input window
 amountMessage = "\nHow much " + currencies[iCurrencyKey] + " do you have ?"
 print(amountMessage)
+
 def limitNumber (errormssg):
+    #function to limit input to numbers only
+    
     numberInput = input()
     counter = 0
     for x in numberInput:
@@ -29,11 +44,15 @@ def limitNumber (errormssg):
         print(errormssg)
         numberInput = limitNumber(errormssg)
     return numberInput
+
 amount = limitNumber (amountMessage)
+#Target currency menu and user input window
 oCurrencyMessage = "\nWhich currency do you want instead ?\n   EUR(a)   USD(b)   GBP(c)   CNY(d)"
 print(oCurrencyMessage)
 oCurrencyKey = limitLetter ("abcd", oCurrencyMessage)
-apiKey = "d0c3f9d767-4fa9912e0f-r9o59i"
+
+#api code
+apiKey = "d0c3f9d767-4fa9912e0f-r9o59i" #needs to be updated before use
 url = "https://api.fastforex.io/convert?from=" + currencies[iCurrencyKey] + "&to=" + currencies[oCurrencyKey] + "&amount="+ amount +" &api_key=" + apiKey
 headers = {"Accept": "application/json"}
 response = requests.request("GET", url, headers=headers)
