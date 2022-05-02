@@ -189,39 +189,44 @@ void playGame (int game [N][N])
 {
     printGame(game);
     cout << "\nROW: ";
-    int row, column, value;
+    char row, column, value;
     cin >> row;
-    if (isdigit(row))
+    if (!isdigit(row))
     {
         while (!(isdigit(row)) )
         {
-            printf("\nWrong input, try again!");
+            printf("\nWrong input, try again!\nROW: ");
             cin >> row;
         }
     }
     cout << "\nCOLUMN: ";
     cin >> column;
-    if (isdigit(column))
+    if (!isdigit(column))
     {
         while (!(isdigit(column)) )
         {
-            printf("\nWrong input, try again!");
+            printf("\nWrong input, try again!\nCOLUMN: ");
             cin >> column;
         }
     }
     cout << "\nValue: ";
     cin >> value;
-    if (isdigit(value))
+    if (!isdigit(value))
     {
         while (!(isdigit(value)) )
         {
-            printf("\nWrong input, try again!");
+            printf("\nWrong input, try again!\nVALUE: ");
             cin >> value;
         }
     }
-    if (noRep(value, row-1, column-1, game))
+
+    int value2, row2, column2;
+    value2 = value - '0';
+    row2 = row - '0';
+    column2 = column - '0';
+    if (noRep(value2, row2-1, column2-1, game))
     {
-        game[row-1][column-1] = value;
+        game[row2-1][column2-1] = value2;
     }
     else 
     {
