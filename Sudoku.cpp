@@ -8,23 +8,24 @@
 #include <time.h> //time()
 #include <string.h> //strlen()
 #include <cctype> //isdigit()
+#include <vector>
+#include <unistd.h> //sleep()
+
 using namespace std;
 
-#define N 9
-
-void gameMenu (int game [N][N]);
-void printGame (int game[N][N]);
-void createGame (int game [N][N], int difficulty);
+void gameMenu (vector <vector<int>> game);
+void printGame (vector <vector<int>> game);
+void createGame (vector <vector<int>> &game, int difficulty);
 void letterInput (char *wanted, char *input, string errormessage, int wantedLength);
-bool noRep (int value, int x, int y, int game[N][N]);
-void playGame (int game [N][N]);
-void solveGame (int game[N][N]);
+bool noRep (int value, int x, int y, vector <vector<int>> game);
+void playGame (vector <vector<int>> game);
+void solveGame (vector <vector<int>> game);
 
 
 int main ()
 {
     //Finished Sudoku Game 
-    int spielFeld [N][N] = 
+    vector <vector<int>> spielFeld = 
     {
         {1,2,9,5,4,3,7,8,6},
         {7,3,5,8,6,9,4,2,1},
@@ -42,13 +43,13 @@ int main ()
 }
 
 //Function to print the Sudoku Game
-void printGame (int game[N][N])
+void printGame (vector <vector<int>> game)
 {
     printf("  *****Sudoku GAME*****\n\n");
-    for (int i = 0; i < N; i++)
+    for (int i = 0; i < game.size(); i++)
     {
         i == 0 ? printf("-------------------------\n"):0;
-        for (int j = 0; j < N; j++)
+        for (int j = 0; j < game.size(); j++)
         {
             j == 0 ? printf("| "):0;
             printf("%d ", game[i][j]);
@@ -59,13 +60,14 @@ void printGame (int game[N][N])
     }
 }
 
+
 //Function to create a randomized Sudoku Game
-void createGame (int game [N][N], int difficulty)
+void createGame (vector <vector<int>> &game, int difficulty)
 {
     srand(time(0));
-    for (int i = 0; i < N; i++)
+    for (int i = 0; i < game.size(); i++)
     {
-        for (int j = 0; j < N; j++)
+        for (int j = 0; j < game.size(); j++)
         {
             int random = rand() % (2+difficulty) + 1;
             if (random == 1 || random == 2)
@@ -113,7 +115,7 @@ void letterInput (char *wanted, char *input, string errormessage, int wantedLeng
 }
 
 //Function for the game menu where difficulty and gamemode are chosen
-void gameMenu (int game [N][N])
+void gameMenu (vector <vector<int>> game)
 {
     
     //Header and difficutly menu 
@@ -164,18 +166,24 @@ void gameMenu (int game [N][N])
         {
             case 'a':
             createGame (game, 50);
+            printGame (game);
+            sleep (5);
             solveGame (game);
             cout << "\n\nSUDOKU SOLVED";
             break;
 
             case 'b':
             createGame (game, 15);
+            printGame (game);
+            sleep (5);            
             solveGame (game);
             cout << "\n\nSUDOKU SOLVED";
         	break;
 
             case 'c':
             createGame (game, 5);
+            printGame (game);
+            sleep (5);            
             solveGame (game);
             cout << "\n\nSUDOKU SOLVED";
             break;
@@ -185,7 +193,7 @@ void gameMenu (int game [N][N])
 }
 
 //Function for the actual game
-void playGame (int game [N][N])
+void playGame (vector <vector<int>> game)
 {
     printGame(game);
     cout << "\nROW: ";
@@ -253,11 +261,11 @@ void playGame (int game [N][N])
 }
 
 //function that ensures that theres no repetition
-bool noRep (int value, int x, int y, int game[N][N])
+bool noRep (int value, int x, int y, vector <vector<int>> game)
 {
-    for (int i = 0; i < 9; i++)
+    for (int i = 0; i < game.size(); i++)
     {
-        for (int j = 0; j < 9; j++)
+        for (int j = 0; j < game.size(); j++)
         {
            if (value != 0 && (value == game[x][j] || value == game [i][y] || x/3 == i/3 && y/3 == j/3 && value == game[i][j]))
            {
@@ -269,11 +277,11 @@ bool noRep (int value, int x, int y, int game[N][N])
 }
 
 //function that solves the sudoku game via backtracking
-void solveGame (int game[N][N])
+void solveGame (vector <vector<int>> game)
 {
-    for (int i = 0; i < 9; i++)
+    for (int i = 0; i < game.size(); i++)
     {
-        for (int j = 0; j < 9; j++)
+        for (int j = 0; j < game.size(); j++)
         {
             if (game[i][j] == 0)
             {
@@ -292,3 +300,4 @@ void solveGame (int game[N][N])
     }
     printGame (game);
 }
+
