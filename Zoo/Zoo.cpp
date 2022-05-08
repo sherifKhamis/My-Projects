@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdio>
 #include "Costumer.h"
+#include "Animal.h"
 using namespace std;
 
 
@@ -23,5 +24,8 @@ void menu ()
     Costumer newCostumer (name, surname, age);
     cout << "\nWelcome " << name << " " << surname << " you've been here " << newCostumer.costumerCount(name, surname, age) << " times before! ";
     newCostumer.costumerRegistration (name, surname,age);
+
 }
+
+
 
