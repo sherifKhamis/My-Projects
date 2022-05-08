@@ -21,7 +21,7 @@ void menu ()
     cout << "Please enter your age: ";
     cin >> age;
     Costumer newCostumer (name, surname, age);
-    newCostumer.costumerRegistration (name, surname,age);
     cout << "\nWelcome " << name << " " << surname << " you've been here " << newCostumer.costumerCount(name, surname, age) << " times before! ";
+    newCostumer.costumerRegistration (name, surname,age);
 }
 
