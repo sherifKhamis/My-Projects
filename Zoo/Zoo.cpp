@@ -24,6 +24,17 @@ void menu ()
     Costumer newCostumer (name, surname, age);
     cout << "\nWelcome " << name << " " << surname << " you've been here " << newCostumer.costumerCount(name, surname, age) << " times before! ";
     newCostumer.costumerRegistration (name, surname,age);
+    cout << "\nWhich animal do you want to visit ?\nLion (a)\nTiger (b)\nCheetah (c)\nElefant (d)\nPinguin (e)\nChoice: ";
+    char animalChoice;
+    cin >> animalChoice;
+    while (animalChoice != 'a' && animalChoice != 'b' && animalChoice != 'c' && animalChoice != 'd' && animalChoice != 'e')
+    {
+        printf("\n\nWrong input, try again!\n\n");
+        printf("Lion (a)\nTiger (b)\nCheetah (c)\nElefant (d)\nPinguin (e)\nChoice: ");
+        cin >> animalChoice;
+    }
+    
+
 
 }
 
