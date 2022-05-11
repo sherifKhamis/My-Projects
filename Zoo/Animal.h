@@ -6,11 +6,11 @@ using namespace std;
 class Animal 
 {
     public:
-        string name;
-        string food;
-        int topSpeed;
+        string name = "Animal";
+        string food = "Anything";
+        int topSpeed = 0;
         void animalSound ();
-        void running ();
+        void running (string name, int topSpeed);
 };
 
 class Lion : public Animal
@@ -21,6 +21,7 @@ class Lion : public Animal
         int topSpeed = 81;
         
         void animalSound ();
+
 };
 
 class Tiger : public Animal
@@ -31,6 +32,7 @@ class Tiger : public Animal
         int topSpeed = 80;
         
         void animalSound ();
+
 };
 
 class Cheetah : public Animal
@@ -51,6 +53,7 @@ class Elefant : public Animal
         int topSpeed = 40;
         
         void animalSound ();
+
 };
 
 class Pinguin : public Animal
