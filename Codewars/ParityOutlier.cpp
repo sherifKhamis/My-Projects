@@ -1,4 +1,4 @@
-/*You are given an array (which will have a length of at least 3, but could be very large) containing integers. 
+/*You are given an array containing integers. 
 The array is either entirely comprised of odd integers or entirely comprised of even integers except for a single integer N. 
 Write a method that takes the array as an argument and returns this "outlier" N.*/
 
@@ -47,6 +47,6 @@ int FindOutlier(vector<int> arr)
 
 int main ()
 {
-    vector <int> arr = {1, 3, 4, 5, 9, 11, 13, 15, 17};
+    vector <int> arr = {1, 3, 4, 5, 9, 11, 13, 15, 17}; //all odd except one
     cout << FindOutlier (arr); // result = 4
 }
