@@ -44,6 +44,11 @@ public class TicTacToe
     }
     board [row-1][column-1] = 'x';
     printBoard(board);
+    if (Xwin(board))
+    {
+        System.out.println("Player 1 won!");
+        return;
+    }
 
     System.out.print("Player 2: Which row do you want to choose ?: ");
     int row2 = input.nextInt();
@@ -60,6 +65,13 @@ public class TicTacToe
     }
     board [row2-1][column2-1] = 'o';
     printBoard(board);
+
+
+    if (Owin(board))
+    {
+        System.out.println("Player 1 won!");
+        return;
+    }
     
     playGame(board);
 
@@ -113,6 +125,43 @@ public class TicTacToe
        return false;
     }
 
+
+    public static boolean Owin (char [][] board)
+    {
+        if (board[0][0] == 'o' && board[0][1] == 'o' && board[0][2] == 'o')
+        {
+            return true;
+        }
+        if (board[1][0] == 'o' && board[1][1] == 'o' && board[1][2] == 'o')
+        {
+            return true;
+        }
+        if (board[2][0] == 'o' && board[2][1] == 'o' && board[2][2] == 'o')
+        {
+            return true;
+        }
+        if (board[0][0] == 'o' && board[1][0] == 'o' && board[2][0] == 'o')
+        {
+            return true;
+        }       
+        if (board[0][1] == 'o' && board[1][1] == 'o' && board[2][1] == 'o')
+        {
+            return true;
+        }       
+        if (board[0][2] == 'o' && board[1][2] == 'o' && board[2][2] == 'o')
+        {
+            return true;
+        }
+        if (board[0][0] == 'o' && board[1][1] == 'o' && board[2][2] == 'o')
+        {
+            return true;
+        }
+        if (board[0][2] == 'o' && board[1][1] == 'o' && board[2][0] == 'o')
+        {
+            return true;
+        }
+        return false;
+     }
    
 };
 
