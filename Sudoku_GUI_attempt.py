@@ -27,6 +27,47 @@ game.resizable(False, False)
 game.attributes('-topmost', 1)
 game.configure(bg = "Grey")
 
+def noRep (value, x, y, game):
+    #function that ensures theres no repetition 
+
+    for i in range (9):
+        for j in range (9):
+            if value != 0 and (value == game[x][j] or value == game[i][y] or x/3 == i/3 and y/3 == j/3 and value == game [i][j]):
+                return False
+    return True
+
+
+def solve (array):
+    #function that solves the sudoku game and prints it afterwards
+
+    for i in range (9):
+        for j in range (9):
+            if array[i][j] == 0:
+                for n in range (1,10):
+                    if noRep (n, i, j, array):
+                        array [i][j] = n
+                        solve(array)
+                        array [i][j] = 0
+                return 
+    text = Text(game, width= 27, height = 9)
+    text.place(relx = 0.37,  rely = 0.25)
+    strings = [str(x) for x in array]
+    string = ("\n".join(strings))
+    text.insert("3.0", string)
+    text['state'] = 'disabled'
+
+
+def page_4_solved (element_1, element_2, array):
+    element_1.destroy()
+    element_2.destroy()
+    solve(array)
+
+def page_4_play (element_1, element_2, array):
+    element_1.destroy()
+    element_2.destroy()
+    
+
+
 def Page_3 (element_1, element_2, array):
     element_1.destroy()
     element_2.destroy()
@@ -36,6 +77,12 @@ def Page_3 (element_1, element_2, array):
     string = ("\n".join(strings))
     text.insert("3.0", string)
     text['state'] = 'disabled'
+    Solve_button = ttk.Button(
+    game,
+    text='SOLVE',
+    style= "small.TButton",
+    command = lambda: page_4_solved (text, Solve_button, array))
+    Solve_button.place (relx= 0.5, rely = 0.65, anchor = "center")
 
 def createGame (difficulty, element_1, element_2, element_3):
     array = [[1,2,9,5,4,3,7,8,6],
@@ -80,19 +127,19 @@ def Page_1 (element_1, element_2):
     game,
     text='EASY',
     style= "small.TButton",
-    command = lambda: createGame (0.3, difficulty_Button_1, difficulty_Button_2, difficulty_Button_3))
+    command = lambda: createGame (0.2, difficulty_Button_1, difficulty_Button_2, difficulty_Button_3))
     difficulty_Button_1.place (relx= 0.2, rely = 0.5, anchor = "center")
     difficulty_Button_2 = ttk.Button(
     game,
     text='MEDIUM',
     style= "small.TButton",
-    command = lambda: createGame (0.5, difficulty_Button_1, difficulty_Button_2, difficulty_Button_3))
+    command = lambda: createGame (0.4, difficulty_Button_1, difficulty_Button_2, difficulty_Button_3))
     difficulty_Button_2.place (relx= 0.5, rely = 0.5, anchor = "center")
     difficulty_Button_3 = ttk.Button(
     game,
     text='HARD',
     style= "small.TButton",
-    command = lambda: createGame (0.7, difficulty_Button_1, difficulty_Button_2, difficulty_Button_3))
+    command = lambda: createGame (0.55, difficulty_Button_1, difficulty_Button_2, difficulty_Button_3))
     difficulty_Button_3.place (relx= 0.8, rely = 0.5, anchor = "center")
 
 

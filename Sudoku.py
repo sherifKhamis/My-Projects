@@ -52,7 +52,7 @@ def printGame (array):
         print()
         if i == 2 or i == 5:
             print("----------------------")     
-difficulties = {"a" : 0.3, "b" : 0.4, "c" : 0.6}
+difficulties = {"a" : 0.3, "b" : 0.4, "c" : 0.55}
 array = createGame (difficulties[difficultyKey])
 printGame (array)
 
