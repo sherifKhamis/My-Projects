@@ -11,7 +11,7 @@ bool correctPin (int pin);
 void atmMenu ();
 void withdraw (int pin, int amount);
 void seek_to_next_line();
-void checkBalance (int pin);
+int checkBalance (int pin);
 
 int main ()
 {
@@ -49,7 +49,7 @@ void atmMenu ()
     printf("\n\n*****ATM of Deutsche Bank*****\n\n");
     printf("Please enter your PIN Number: ");
     
-    int pin, amount;
+    int pin, amount, balance;
     scanf("%d", &pin);
 
     //while loop to check if PIN number exists in database
@@ -80,6 +80,17 @@ void atmMenu ()
         case 'b':
         printf("\nWhich amount ?: ");
         scanf("%d",&amount);
+
+        //Checking if theres enough balance for withdrawal
+        balance = checkBalance(pin);
+        while (balance < amount)
+        {
+            printf("\nInsufficient funds, try withdrawing less");
+            printf("\nWhich amount ?: ");
+            scanf("%d",&amount);
+        }
+
+        //if yes withdraw 
         withdraw (pin, amount);
         atmMenu();
         break;
@@ -128,7 +139,7 @@ void deposit (int pin, int amount)
         if (pin2 == pin)
         {
             amount += startingAmount; //Edit amount
-            fseek(database, -30, SEEK_CUR); //go back in file to print new balance at the same position 
+            fseek(database, -29, SEEK_CUR); //go back in file to print new balance at the same position 
             fprintf(database,"\n\nPIN: %d\nBalance = %d$", pin2, amount); 
             fclose(database);
             return;
@@ -168,7 +179,7 @@ void withdraw (int pin, int amount)
 }
 
 
-void checkBalance (int pin)
+int checkBalance (int pin)
 {
     int pin2, startingAmount;
         
@@ -182,7 +193,7 @@ void checkBalance (int pin)
         {
             printf("\nYour balance is %d$", startingAmount);
             fclose(database);
-            return;
+            return startingAmount;
         }
     }
     
