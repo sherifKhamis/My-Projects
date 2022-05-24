@@ -4,6 +4,8 @@
 
 #include <stdio.h>
 #include <stdbool.h> 
+#include <string.h> //strlen()
+#include <stdlib.h> //atoi()
 
 void generateDatabase ();
 void deposit (int pin, int amount);
@@ -12,6 +14,7 @@ void atmMenu ();
 void withdraw (int pin, int amount);
 void seek_to_next_line();
 int checkBalance (int pin);
+bool limitNumber (char *input);
 
 int main ()
 {
@@ -50,14 +53,34 @@ void atmMenu ()
     printf("Please enter your PIN Number: ");
     
     int pin, amount, balance;
-    scanf("%d", &pin);
+    char pin2[100];
+    scanf("%s", &pin2);
+
+    
+    //Function to make sure theres no letter input
+    while (!limitNumber(pin2))
+    {
+        printf("\nWrong input, no letters, try again!");
+        printf("\nPlease enter your PIN Number:");
+        scanf("%s", &pin2);
+    }
+
+    //If only number input, save in PIN
+    pin = atoi(pin2);
 
     //while loop to check if PIN number exists in database
     while (!(correctPin(pin)))
     {
         printf("\nWrong PIN Number, try again!");
         printf("\nPlease enter your PIN Number: ");
-        scanf("%d", &pin);
+        scanf("%s", &pin2);
+        while (!limitNumber(pin2))
+        {
+            printf("\nWrong input, no letters, try again!");
+            printf("\nPlease enter your PIN Number:");
+            scanf("%s", &pin2);
+        }
+        pin = atoi(pin2);
     }
 
     //User action menu 
@@ -197,4 +220,15 @@ int checkBalance (int pin)
         }
     }
     
+}
+
+//Function to make sure theres no letter input
+bool limitNumber (char *input)
+{
+    for (int i = 0; i < strlen(input); i++)
+    {
+        if (input[i] < 48 || input[i] > 57)
+            return false;
+    }
+    return true;
 }
