@@ -53,7 +53,7 @@ void atmMenu ()
     printf("Please enter your PIN Number: ");
     
     int pin, amount, balance;
-    char pin2[100];
+    char pin2[100], amount2[100];
     scanf("%s", &pin2);
 
     
@@ -89,20 +89,48 @@ void atmMenu ()
     char choice;
     scanf(" %c", &choice);
 
+    //While loop to limit user input to "abc" only for choice
+    while (choice != 'a' && choice != 'b' && choice != 'c')
+    {
+        printf("\n\nWrong input, try again !\n\n");
+        printf("\nWhat do you want to do ?");
+        printf("\nDEPOSIT (a)\nWITHDRAW (b)\nCHECK BALANCE (c)\nChoice: ");
+        scanf(" %c", &choice);
+    }
+
     seek_to_next_line(); //to clear out buffer for next scanf
 
     switch (choice)
     {
         case 'a':
         printf("\nWhich amount ?: ");
-        scanf("%d",&amount);
+        scanf("%s",&amount2);
+
+        //Limit user input to numbers only 
+        while (!limitNumber(amount2))
+        {
+            printf("\nWrong input, no letters, try again!");
+            printf("\nWhich amount do you want to deposit ?:");
+            scanf("%s", &amount2);
+        }
+        amount = atoi(amount2);
         deposit (pin, amount);
+        printf("\n%d$ have been deposited to your account!", amount);
         atmMenu();
         break;
 
         case 'b':
         printf("\nWhich amount ?: ");
-        scanf("%d",&amount);
+        scanf("%s",&amount2);
+
+        //limit user input to numbers only
+        while (!limitNumber(amount2))
+        {
+            printf("\nWrong input, no letters, try again!");
+            printf("\nWhich amount do you want to withdraw ?:");
+            scanf("%s", &amount2);
+        }
+        amount = atoi(amount2);
 
         //Checking if theres enough balance for withdrawal
         balance = checkBalance(pin);
@@ -110,11 +138,19 @@ void atmMenu ()
         {
             printf("\nInsufficient funds, try withdrawing less");
             printf("\nWhich amount ?: ");
-            scanf("%d",&amount);
+            scanf("%s",&amount2);
+            while (!limitNumber(amount2))
+            {
+                printf("\nWrong input, no letters, try again!");
+                printf("\nWhich amount do you want to withdraw ?:");
+                scanf("%s", &amount2);
+            }
+            amount = atoi(amount2);
         }
 
         //if yes withdraw 
         withdraw (pin, amount);
+        printf("\n%d$ have been withdrawed from your account!", amount);
         atmMenu();
         break;
 
