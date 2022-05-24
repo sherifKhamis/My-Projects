@@ -54,7 +54,7 @@ public class ATM
             case "b":
             System.out.print("How much do you want to withdraw ?: ");
             int withdrawAmount = input.nextInt();
-            deposit(pin, withdrawAmount);
+            withdraw(pin, withdrawAmount);
             menu();
             break;
 
