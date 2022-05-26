@@ -53,30 +53,51 @@ button_9.place (x=156, y = 360, width = 60, height = 60)
 button_0 = ttk.Button (window, text='0', style="small.TButton", command = lambda: text.insert(INSERT,"0"))
 button_0.place (x=80, y = 440, width = 60, height = 60)
 
-button_plus = ttk.Button (window, text='+', style="small.TButton", command = lambda: get_number())
+button_plus = ttk.Button (window, text='+', style="small.TButton", command = lambda: get_number("+"))
 button_plus.place (x=232, y =200, width = 60, height = 60)
 
-button_minus = ttk.Button (window, text='-', style="small.TButton", command = lambda: text.insert(INSERT,"-"))
+button_minus = ttk.Button (window, text='-', style="small.TButton", command = lambda:  get_number("-"))
 button_minus.place (x=232, y = 280, width = 60, height = 60)
 
-button_multiply = ttk.Button (window, text='x', style="small.TButton", command = lambda: text.insert(INSERT,"x"))
+button_multiply = ttk.Button (window, text='x', style="small.TButton", command = lambda:  get_number("x"))
 button_multiply.place (x=232, y = 360, width = 60, height = 60)
 
-button_divide = ttk.Button (window, text='/', style="small.TButton", command = lambda: text.insert(INSERT,"/"))
+button_divide = ttk.Button (window, text='/', style="small.TButton", command = lambda:  get_number("/"))
 button_divide.place (x=232, y = 440, width = 60, height = 60)
 
-button_result = ttk.Button (window, text='=', style="small.TButton", command = lambda: text.insert(INSERT,"="))
+button_result = ttk.Button (window, text='=', style="small.TButton", command = lambda: equal())
 button_result.place (x=232, y = 520, width = 60, height = 60)
 
 style = ttk.Style()
 style.configure('small.TButton', font=(None, 15))
 
-def get_number():
+def get_number(sign):
+    global number1
     number1 = text.get("1.0", "end-1c")
     text.delete("1.0", END)
-    return number1
+    global sign2
+    sign2 = sign
 
+def equal ():
+    number2 = text.get("1.0", "end-1c")
+    text.delete("1.0", END)
+    if sign2 == "+":
+        result = int(number1) + int (number2)
+        text.insert(INSERT, result)
+    if sign2 == "-":
+        result = int(number1) - int (number2)
+        text.insert(INSERT, result)
+    if sign2 == "x":
+        result = int(number1) * int (number2)
+        text.insert(INSERT, result)
+    if sign2 == "/":
+        result = int(number1) / int (number2)
+        text.insert(INSERT, result)
     
+    
+
+
+
 
 
 window.mainloop()
