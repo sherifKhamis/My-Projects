@@ -1,5 +1,6 @@
 import tkinter as tk
-from tkinter import INSERT, ttk
+from tkinter import ttk
+from tkinter import *
 
 window = tk.Tk()
 window.title("Calculator")
@@ -52,7 +53,7 @@ button_9.place (x=156, y = 360, width = 60, height = 60)
 button_0 = ttk.Button (window, text='0', style="small.TButton", command = lambda: text.insert(INSERT,"0"))
 button_0.place (x=80, y = 440, width = 60, height = 60)
 
-button_plus = ttk.Button (window, text='+', style="small.TButton", command = lambda: text.insert(INSERT,"+"))
+button_plus = ttk.Button (window, text='+', style="small.TButton", command = lambda: get_number())
 button_plus.place (x=232, y =200, width = 60, height = 60)
 
 button_minus = ttk.Button (window, text='-', style="small.TButton", command = lambda: text.insert(INSERT,"-"))
@@ -70,6 +71,12 @@ button_result.place (x=232, y = 520, width = 60, height = 60)
 style = ttk.Style()
 style.configure('small.TButton', font=(None, 15))
 
+def get_number():
+    number1 = text.get("1.0", "end-1c")
+    text.delete("1.0", END)
+    return number1
+
+    
 
 
 window.mainloop()
