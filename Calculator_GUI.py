@@ -94,11 +94,6 @@ def equal ():
         result = int(number1) / int (number2)
         text.insert(INSERT, result)
     
-    
-
-
-
-
 
 window.mainloop()
 
