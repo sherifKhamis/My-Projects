@@ -85,9 +85,37 @@ def correctPin ():
     for word in content:
         if word == "PIN: " + get_pin() + "\n":
             f.close()
+            page_2()
             return True
     text.delete("1.0", END)
     showerror("Error", "Wrong PIN")
+
+
+def page_2():
+
+    text.destroy()
+    button_0.destroy()
+    button_1.destroy()
+    button_2.destroy()
+    button_3.destroy()
+    button_4.destroy()
+    button_5.destroy()
+    button_6.destroy()
+    button_7.destroy()
+    button_8.destroy()
+    button_9.destroy()
+    button_enter.destroy()
+
+    button_checkBalance = ttk.Button (window, text='Check Balance', style="small.TButton")
+    button_checkBalance.place (x=210, y = 200, width = 180, height = 60)
+
+    button_deposit = ttk.Button (window, text='Deposit Cash', style="small.TButton")
+    button_deposit.place (x=210, y = 300, width = 180, height = 60)
+
+    button_withdraw = ttk.Button (window, text='Withdraw', style="small.TButton")
+    button_withdraw.place (x=210, y = 400, width = 180, height = 60)
+
+
 
 
 window.mainloop()
