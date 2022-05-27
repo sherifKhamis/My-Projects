@@ -106,7 +106,7 @@ def page_2():
     button_9.destroy()
     button_enter.destroy()
 
-    button_checkBalance = ttk.Button (window, text='Check Balance', style="small.TButton")
+    button_checkBalance = ttk.Button (window, text='Check Balance', style="small.TButton", command = lambda: checkBalance(button_deposit, button_withdraw))
     button_checkBalance.place (x=210, y = 200, width = 180, height = 60)
 
     button_deposit = ttk.Button (window, text='Deposit Cash', style="small.TButton")
@@ -115,6 +115,17 @@ def page_2():
     button_withdraw = ttk.Button (window, text='Withdraw', style="small.TButton")
     button_withdraw.place (x=210, y = 400, width = 180, height = 60)
 
+def checkBalance(element_1, element_2):
+    element_1.destroy()
+    element_2.destroy()
+    f = open("database.txt", "r")
+    content = f.readlines()
+    for word in content:
+        if word == "PIN: " + pin + "\n":
+            index = content.index(word)
+            text = tk.Text(window, height = 4, font = "Arial 15" ,width= 20)
+            text.place(x=190, y=350)
+            text.insert(INSERT, content[index+1])
 
 
 
