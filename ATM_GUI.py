@@ -61,9 +61,10 @@ button_enter.place (x=70, y = 360, width = 90, height = 60)
 
 style = ttk.Style()
 style.configure('small.TButton', font=(None, 15))
-window.mainloop()
 
 def get_pin():
     global pin
     pin = text.get("1.0","end-1c")
     print(pin)
+
+window.mainloop()
