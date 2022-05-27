@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import *
+from tkinter.messagebox import showerror
 
 window = tk.Tk()
 window.title("ATM")
@@ -56,7 +57,7 @@ button_9.place (x=330, y = 430, width = 60, height = 60)
 button_0 = ttk.Button (window, text='0', style="small.TButton", command = lambda: text.insert(INSERT,"0"))
 button_0.place (x=260, y = 500, width = 60, height = 60)
 
-button_enter = ttk.Button (window, text='ENTER', style="small.TButton", command = lambda: get_pin())
+button_enter = ttk.Button (window, text='ENTER', style="small.TButton", command = lambda: correctPin())
 button_enter.place (x=70, y = 360, width = 90, height = 60)
 
 style = ttk.Style()
@@ -65,6 +66,31 @@ style.configure('small.TButton', font=(None, 15))
 def get_pin():
     global pin
     pin = text.get("1.0","end-1c")
-    print(pin)
+    return pin
+
+def createDB():
+    f = open("database.txt", "w")
+    f.write("\n\nPIN: 1234\nBalance: 5000$")
+    f.write("\n\nPIN: 1224\nBalance: 4780$")
+    f.write("\n\nPIN: 1784\nBalance: 9422$")
+    f.write("\n\nPIN: 9644\nBalance: 7853$")
+    f.write("\n\nPIN: 7946\nBalance: 8421$")
+    f.close()
+
+createDB()
+
+def correctPin ():
+    f = open("database.txt", "r")
+    content = f.readlines()
+    for word in content:
+        if word == "PIN: " + get_pin() + "\n":
+            f.close()
+            return True
+    text.delete("1.0", END)
+    showerror("Error", "Wrong PIN")
+
 
 window.mainloop()
+
+
+
