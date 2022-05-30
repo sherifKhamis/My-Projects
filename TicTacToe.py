@@ -7,3 +7,21 @@ def printBoard(board):
 
 emptyBoard = ["-", "-", "-", "-", "-", "-", "-", "-", "-"]
 
+def playGame (board):
+    printBoard(board)
+    print("Which field do you want to play (1-9) ?")
+    print("Player 1: ", end= "")
+    field = int(input())
+    board[field-1] = "X"
+
+    printBoard(board)
+    print("Which field do you want to play (1-9) ?")
+    print("Player 2: ", end= "")
+    field = int(input())
+    board[field-1] = "O"
+
+    playGame(board)
+
+playGame(emptyBoard)
+
+    
