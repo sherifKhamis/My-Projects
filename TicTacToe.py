@@ -19,6 +19,7 @@ def playGame (board):
     board[field-1] = "X"
     if(xWin(board)):
         print("Player 1 won!")
+        return
 
 
     printBoard(board)
@@ -32,6 +33,7 @@ def playGame (board):
     board[field-1] = "O"
     if(xWin(board)):
         print("Player 2 won!")
+        return
 
     playGame(board)
 
@@ -80,3 +82,5 @@ def oWin (board):
         return True
     else:
         return False
+
+playGame(emptyBoard)
