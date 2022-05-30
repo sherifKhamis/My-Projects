@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <ctime>
+#include <cstdlib>
 
 using namespace std;
 
@@ -8,6 +10,9 @@ bool validPlay (int row, int column, vector <vector <char>> field);
 void playGame (vector <vector <char>> field);
 bool Owin (vector <vector<char>> board);
 bool Xwin (vector <vector<char>> board);
+void gameMenu (vector <vector<char>> board);
+void playAI (vector <vector<char>> field);
+
 
 int main ()
 {
@@ -18,7 +23,7 @@ int main ()
         {'-', '-', '-'},
     };
 
-    playGame(defaultField);
+    gameMenu(defaultField);
 
 
 }
@@ -169,3 +174,69 @@ bool Owin (vector <vector<char>> board)
        }
        return false;
 }
+
+void gameMenu (vector <vector<char>> board)
+{
+    cout << "\nWelcome to Tic Tac Toe in C++ !";
+    cout << "\nDo you want to play against an AI (a) or a real player (b)?: ";
+    char choice;
+    cin >> choice;
+    if (choice == 'a')
+    {
+        playAI(board);
+    }
+    else 
+    {
+        playGame(board);
+    }
+
+}
+
+void playAI (vector <vector<char>> field)
+{
+    cout << "\nWelcome to Tic Tac Toe in C++ !" << endl;
+    printGame(field);
+    cout << "\nPlayer 1: Which ROW do you want to play ?:  ";
+    int row, column;
+    cin >> row;
+    cout << "\nPlayer 1: Which COLUMN do you want to play ?:  ";
+    cin >> column;
+    while (!validPlay(row, column, field))
+    {
+        cout << "\nField already completed choose another one !\n";
+        printGame(field);
+        cout << "\nPlayer 1: Which row do you want to choose ?: ";
+        cin >> row;
+        cout << "\nPlayer 1: Which column do you want to choose ?: ";
+        cin >> column;
+    }
+    field[row-1][column-1] = 'X';
+    printGame(field);
+    if (Xwin(field))
+    {
+        cout << "\nPlayer 1 won!";
+        return;
+    }
+
+    srand(time(0)); 
+    int row2, column2;
+    row2 = (rand() % 3)+1;
+    column2 = (rand() % 3)+1;
+    while (!validPlay(row2, column2, field))
+    {
+        row2 = (rand() % 3)+1;
+        column2 = (rand() % 3)+1;
+    }
+    field[row2-1][column2-1] = 'O';
+    cout << "\n";
+    if (Owin(field))
+    {
+        
+        cout << "\nThe AI won!";
+        return;
+    }
+    playAI(field);
+
+}
+
+
