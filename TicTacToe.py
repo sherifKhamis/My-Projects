@@ -12,7 +12,12 @@ def playGame (board):
     print("Which field do you want to play (1-9) ?")
     print("Player 1: ", end= "")
     field = int(input())
+    while (correctPlay(board, field) == False):
+        print("Field already occupied! \nTry another one")
+        print("Player 1: ", end= "")
+        field = int(input())
     board[field-1] = "X"
+
 
     printBoard(board)
     print("Which field do you want to play (1-9) ?")
@@ -22,6 +27,9 @@ def playGame (board):
 
     playGame(board)
 
-playGame(emptyBoard)
-
+def correctPlay (board, number):
+    if (board[number-1] != "-"):
+        return False
+    else:
+        return True
     
