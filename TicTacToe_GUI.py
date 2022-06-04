@@ -46,6 +46,69 @@ def draw_figures():
 			elif board[row][col] == 2:
 				pygame.draw.line( surface, CROSS_COLOR, (col * SQUARE_SIZE + SPACE, row * SQUARE_SIZE + SQUARE_SIZE - SPACE), (col * SQUARE_SIZE + SQUARE_SIZE - SPACE, row * SQUARE_SIZE + SPACE), CROSS_WIDTH )	
 				pygame.draw.line( surface, CROSS_COLOR, (col * SQUARE_SIZE + SPACE, row * SQUARE_SIZE + SPACE), (col * SQUARE_SIZE + SQUARE_SIZE - SPACE, row * SQUARE_SIZE + SQUARE_SIZE - SPACE), CROSS_WIDTH )
+
+def draw_vertical_winning_line(col, player):
+	posX = col * SQUARE_SIZE + SQUARE_SIZE//2
+
+	if player == 1:
+		color = CIRCLE_COLOR
+	elif player == 2:
+		color = CROSS_COLOR
+
+	pygame.draw.line( surface, color, (posX, 15), (posX, 600 - 15), 10)
+
+def draw_horizontal_winning_line(row, player):
+	posY = row * SQUARE_SIZE + SQUARE_SIZE//2
+
+	if player == 1:
+		color = CIRCLE_COLOR
+	elif player == 2:
+		color = CROSS_COLOR
+
+	pygame.draw.line( surface, color, (15, posY), (600 - 15, posY), 10 )
+
+def draw_asc_diagonal(player):
+	if player == 1:
+		color = CIRCLE_COLOR
+	elif player == 2:
+		color = CROSS_COLOR
+
+	pygame.draw.line( surface, color, (15, 600 - 15), (600 - 15, 15), 10)
+
+def draw_desc_diagonal(player):
+	if player == 1:
+		color = CIRCLE_COLOR
+	elif player == 2:
+		color = CROSS_COLOR
+
+	pygame.draw.line( surface, color, (15, 15), (600 - 15, 600 - 15), 10)
+
+def check_win(player):
+	# vertical win check
+	for col in range(3):
+		if board[0][col] == player and board[1][col] == player and board[2][col] == player:
+			draw_vertical_winning_line(col, player)
+			return True
+
+	# horizontal win check
+	for row in range(3):
+		if board[row][0] == player and board[row][1] == player and board[row][2] == player:
+			draw_horizontal_winning_line(row, player)
+			return True
+
+	# asc diagonal win check
+	if board[2][0] == player and board[1][1] == player and board[0][2] == player:
+		draw_asc_diagonal(player)
+		return True
+
+	# desc diagonal win chek
+	if board[0][0] == player and board[1][1] == player and board[2][2] == player:
+		draw_desc_diagonal(player)
+		return True
+
+	return False
+
+gameOver = False
 player = 1
 running = True
 while running:
@@ -53,7 +116,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-        if event.type == pygame.MOUSEBUTTONDOWN:
+        if event.type == pygame.MOUSEBUTTONDOWN and not gameOver:
             mouseX = event.pos[1]
             mouseY = event.pos[0]
 
@@ -63,9 +126,13 @@ while running:
             if available_square(clicked_row, clicked_col):
                 if player==1:
                     mark_square(clicked_row, clicked_col, 1)
+                    if check_win(player):
+                        gameOver = True
                     player = 2
                 elif player == 2:
                     mark_square(clicked_row, clicked_col, 2)
+                    if check_win(player):
+                        gameOver = True
                     player = 1
             
                 draw_figures()
