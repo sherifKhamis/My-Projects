@@ -1,4 +1,6 @@
 import pygame
+import numpy
+
 
 pygame.init()
 
@@ -19,6 +21,15 @@ pygame.draw.line(surface, line_color, (0,332), (500,332), 10)
 pygame.draw.line(surface, line_color, (166,0), (166,500), 10)
 pygame.draw.line(surface, line_color, (332,0), (332,500), 10)
 pygame.display.flip()
+
+board = numpy.zeros ((3,3))
+
+def mark_square(row, col, player):
+    board[row][col] = player
+
+def available_square (row, col):
+    return board[row][col] == 0
+
 
 running = True
 while running:
