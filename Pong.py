@@ -1,6 +1,5 @@
 import turtle
 
-
 window = turtle.Screen()
 window.title("Pong")
 window.setup(600, 600)
@@ -29,6 +28,9 @@ Ball.shape("square")
 Ball.color("white")
 Ball.penup()
 Ball.goto(0, 0)
+Ball.dx = 0.05
+Ball.dy = 0.05
+
 
 def paddle_A_up():
     y = paddle_A.ycor()
@@ -59,3 +61,30 @@ window.onkeypress(paddle_B_down, "Down")
 
 while True:
     window.update()
+
+    Ball.setx(Ball.xcor() + Ball.dx)
+    Ball.sety(Ball.ycor() + Ball.dy)
+
+    if Ball.ycor()> 290:
+        Ball.sety(290)
+        Ball.dy *= -1
+
+    if Ball.ycor() < -290:
+        Ball.sety(-290)
+        Ball.dy *= -1
+
+    if Ball.xcor() > 295:
+       Ball.goto(0,0)
+       Ball.dx *= -1
+
+    if Ball.xcor() < -295:
+       Ball.goto(0,0)
+       Ball.dx *= -1
+
+    if (Ball.xcor() > 250 and Ball.xcor() < 260) and (Ball.ycor() < paddle_B.ycor() +40 and Ball.ycor() > paddle_B.ycor() - 40):
+        Ball.setx(250)
+        Ball.dx *= -1
+
+    if (Ball.xcor() < -240 and Ball.xcor() > -250) and (Ball.ycor() < paddle_A.ycor() +40 and Ball.ycor() > paddle_A.ycor() - 40):
+        Ball.setx(-240)
+        Ball.dx *= -1
