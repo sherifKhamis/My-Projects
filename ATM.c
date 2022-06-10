@@ -31,15 +31,15 @@ void generateDatabase ()
     FILE *fp = fopen ("database.txt", "w");
     
     //print the database into the text file
-    fprintf(fp, "\n\n\nPIN: 1234\nBalance = 500$");
-    fprintf(fp, "\n\n\nPIN: 4321\nBalance = 1000$");
-    fprintf(fp, "\n\n\nPIN: 9212\nBalance = 800$");
-    fprintf(fp, "\n\n\nPIN: 3032\nBalance = 549$");
-    fprintf(fp, "\n\n\nPIN: 9311\nBalance = 1040$");
-    fprintf(fp, "\n\n\nPIN: 4320\nBalance = 2000$");
-    fprintf(fp, "\n\n\nPIN: 6666\nBalance = 5403$");
-    fprintf(fp, "\n\n\nPIN: 4032\nBalance = 50$");
-    fprintf(fp, "\n\n\nPIN: 9542\nBalance = 1000$");
+    fprintf(fp, "\n\n\nPIN: 1234\nBalance = 500$   ");
+    fprintf(fp, "\n\n\nPIN: 4321\nBalance = 1000$   ");
+    fprintf(fp, "\n\n\nPIN: 9212\nBalance = 800$   ");
+    fprintf(fp, "\n\n\nPIN: 3032\nBalance = 549$   ");
+    fprintf(fp, "\n\n\nPIN: 9311\nBalance = 1040$   ");
+    fprintf(fp, "\n\n\nPIN: 4320\nBalance = 2000$   ");
+    fprintf(fp, "\n\n\nPIN: 6666\nBalance = 5403$   ");
+    fprintf(fp, "\n\n\nPIN: 4032\nBalance = 50$   ");
+    fprintf(fp, "\n\n\nPIN: 9542\nBalance = 1000$   ");
 
     //close file
     fclose(fp);
@@ -192,14 +192,14 @@ void deposit (int pin, int amount)
     FILE *database = fopen ("database.txt", "r+"); //open file in edit mode
 
     //Iterate through database looking for PIN 
-    while (fscanf(database, "\n\n\nPIN: %d\nBalance = %d$", &pin2,&startingAmount)== 2)
+    while (fscanf(database, "\n\n\nPIN: %d\nBalance = %d$   ", &pin2,&startingAmount)== 2)
     {
         //if PIN was found edit balance by depositing amount
         if (pin2 == pin)
         {
             amount += startingAmount; //Edit amount
-            fseek(database, -29, SEEK_CUR); //go back in file to print new balance at the same position 
-            fprintf(database,"\n\nPIN: %d\nBalance = %d$", pin2, amount); 
+            fseek(database, -39, SEEK_CUR); //go back in file to print new balance at the same position 
+            fprintf(database,"\n\nPIN: %d\nBalance = %d$   ", pin2, amount); 
             fclose(database);
             return;
         }
@@ -222,14 +222,14 @@ void withdraw (int pin, int amount)
     FILE *database = fopen ("database.txt", "r+"); //open file in edit mode 
 
     //iterate through all PINs till the right one is found 
-    while (fscanf(database, "\n\n\nPIN: %d\nBalance = %d$", &pin2,&startingAmount)== 2)
+    while (fscanf(database, "\n\n\nPIN: %d\nBalance = %d$   ", &pin2,&startingAmount)== 2)
     {
         //if PIN was found stop
         if (pin2 == pin)
         {
             startingAmount -= amount; //Edit amount
-            fseek(database, -30, SEEK_CUR); //go back to beginning of the balance entry
-            fprintf(database,"\n\nPIN: %d\nBalance = %d$", pin2, startingAmount); //edit file with new amount
+            fseek(database, -39, SEEK_CUR); //go back to beginning of the balance entry
+            fprintf(database,"\n\nPIN: %d\nBalance = %d$   ", pin2, startingAmount); //edit file with new amount
             fclose(database);
             return;
         }
@@ -245,7 +245,7 @@ int checkBalance (int pin)
     FILE *database = fopen ("database.txt", "r+"); //open file in edit mode 
 
     //Iterate through all account looking for the right PIN
-    while (fscanf(database, "\n\n\nPIN: %d\nBalance = %d$", &pin2,&startingAmount)== 2)
+    while (fscanf(database, "\n\n\nPIN: %d\nBalance = %d$   ", &pin2,&startingAmount)== 2)
     {
         //If found print the balance to console 
         if (pin2 == pin)
