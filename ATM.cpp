@@ -4,6 +4,7 @@
 using namespace std;
 
 void generateDatabase();
+int checkBalance(int pin);
 
 int main ()
 {
@@ -21,4 +22,18 @@ void generateDatabase()
                               "\n\n\nPIN: 9542\nBalance = 1000$";
     database << database_Content;
     database.close();
+}
+
+int checkBalance(int pin)
+{
+    ifstream database ("database.txt");
+    int balance, pin2;
+    string skip;
+    while (database >> skip >> pin2 >> skip >> skip >> balance >> skip)
+    {
+        if (pin2 == pin)
+        {
+            return balance;
+        }
+    }
 }
