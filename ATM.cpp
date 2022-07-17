@@ -5,10 +5,12 @@ using namespace std;
 
 void generateDatabase();
 int checkBalance(int pin);
+void atmMenu();
 
 int main ()
 {
     generateDatabase();
+    atmMenu();
 }
 
 //Function to generate database 
@@ -35,5 +37,25 @@ int checkBalance(int pin)
         {
             return balance;
         }
+    }
+}
+
+void atmMenu()
+{
+    cout << "Welcome to Deutsche Bank ATM\n\n";
+    cout << "Whats your PIN ?\nPIN: ";
+    int pin, balance;
+    cin >> pin;
+    cout << "What do you want to do ?\n";
+    cout << "(a) Check balance\n(b) Deposit\n(c) Withdraw\n(d) Choice: ";
+    char choice;
+    cin >> choice;
+    switch (choice)
+    {
+        case 'a':
+        balance = checkBalance(pin);
+        cout << "\nYour Balance is " << balance << "$\n\n";
+        atmMenu();
+        break;
     }
 }
